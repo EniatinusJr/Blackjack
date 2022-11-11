@@ -1,0 +1,49 @@
+body{
+    background-color:rgb(0,128,0);
+    width: 1440px;
+}
+.cards_player{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 20px 10px;
+    align-items: center;
+    width: 1400px;
+}
+.title{
+    align-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 60px;
+    text-shadow: 2.5px 4px grey;
+}
+.title_dealer{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 50px;
+    text-shadow: 2.5px 4px grey;
+}
+.cards_dealer{
+    align-items: center;
+}
+.button{
+    background-color: grey;
+    font-size: 15px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    align-items: center;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(auto);
+    gap: 10px;
+    margin: 20px auto;
+    border: 1px solid black;
+    padding: 10px 15px;
+}
+.result_dealer{
+    font-size: 40px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.total{
+    font-size: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.center {
+    text-align: center;
+}
