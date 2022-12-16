@@ -1,38 +1,92 @@
 import './App.css';
-import {useEffect, useState} from "react";
-import getCard from "./ApiCall";
+import {Component} from "react";
 
-function App() {
+export default class App extends Component {
 
-    const [deckID, setDeckID] = useState([]);
+    constructor(props) {
+        super(props);
+        this.state = {
+            // Game states
+            gameStarted: false,
+            playerPlaying: false,
+            deckId: '',
+            dealerHand: [],
+            dealerScore: 0,
+            dealerInitialScore: 0,
+            dealerHasAce: false,
+            dealerHasBlackjack: false,
+            dealerSoft: false,
+            insurance: false,
+            playerHand: [],
+            playerScore: 0,
+            playerHasAce: false,
+            playerHasBlackjack: false,
+            playerSplittable: false,
+            playerWins: 0,
+            dealerWins: 0,
+            pushes: 0,
+            playerBlackjacks: 0,
+            dealerBlackjacks: 0,
+            playerBusts: 0,
+            dealerBusts: 0,
+            gameMessage: '',
+        };
+    }
 
-    const [card, setCard] = useState();
-    const [value, setValue] = useState(0);
-    const [image, setImage] = useState("");
-
-
-
-
-    useEffect( () => {
-        fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
-            .then(response => response.json())
-            .then(data => setDeckID(data.deck_id))
-            .catch((error) => {
-                console.error('Error:', error);
+    componentDidMount() {
+        fetch(`https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=8`)
+            .then((res) => res.json())
+            .then((json) => {
+                this.setState({
+                    deckId: json.deck_id,
+                });
             });
+    }
 
-        console.log(deckID);
-    }, [] );
+    handleEndGame() {
+        fetch(`https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=8`)
+            .then((res) => res.json())
+            .then((json) => {
+                this.setState({
+                    deckId: json.deck_id,
+                });
+            });
+        this.setState({
+            gameStarted: false,
+            playerPlaying: false,
+            dealerHand: [],
+            dealerScore: 0,
+            dealerInitialScore: 0,
+            dealerHasAce: false,
+            dealerHasBlackjack: false,
+            dealerSoft: false,
+            insurance: false,
+            playerHand: [],
+            playerScore: 0,
+            playerHasAce: false,
+            playerHasBlackjack: false,
+            playerSplittable: false,
+            // Game Statistics
+            playerWins: 0,
+            dealerWins: 0,
+            pushes: 0,
+            playerBlackjacks: 0,
+            dealerBlackjacks: 0,
+            playerBusts: 0,
+            dealerBusts: 0,
+            gameMessage: '',
+            // Betting options and flags
+            initialBuy: 0,
+            playerChips: 0,
+            betAmount: 0,
+            chipsInPlay: 0,
+            winAmount: 0,
+        });
+    }
 
-    useEffect( () => {
-        if (deckID != null) {
-            getCard(deckID, setValue, setImage);
-        }
-    }, [deckID] );
 
 
-
-
+    /*
     return (
         <div className="App">
             <header className="App-header">
@@ -71,7 +125,6 @@ function App() {
                 <p id="card3a"></p>
             </header>
         </div>
-    );
+    );*/
 }
 
-export default App;
