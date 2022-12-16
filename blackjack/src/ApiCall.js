@@ -1,28 +1,14 @@
-import {useEffect, useState} from "react";
+export default function getCard(deck_id, setValue, setImage) {
+    fetch('https://deckofcardsapi.com/api/' + deck_id + '/new/draw/?count=1')
+        .then(response => response.json())
+        .then(data => {
+            setValue(data.cards[0].value);
+            setImage(data.cards[0].image);
+            console.log(data.cards[0].value);
+            console.log(data.cards[0].image);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+};
 
-function ApiCall() {
-    useEffect(() => {
-        callDeck();
-
-    }, []);
-
-    const [Value, setValue] = useState(0);
-    const [Image, setImage] = useState("")
-
-    const callDeck = () => {
-        fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=1')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                setValue(data.value);
-                console.log(Value);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    }
-
-
-}
-
-export default ApiCall;

@@ -1,13 +1,41 @@
 import './App.css';
-import Apicall from './ApiCall';
+import {useEffect, useState} from "react";
+import getCard from "./ApiCall";
 
 function App() {
+
+    const [deckID, setDeckID] = useState([]);
+
+    const [card, setCard] = useState();
+    const [value, setValue] = useState(0);
+    const [image, setImage] = useState("");
+
+
+
+
+    useEffect( () => {
+        fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
+            .then(response => response.json())
+            .then(data => setDeckID(data.deck_id))
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+        console.log(deckID);
+    }, [] );
+
+    useEffect( () => {
+        if (deckID != null) {
+            getCard(deckID, setValue, setImage);
+        }
+    }, [deckID] );
+
+
 
 
     return (
         <div className="App">
             <header className="App-header">
-                <Apicall></Apicall>
                 <div class="center">
                     <div class="cards_player">
                         <h1>Blackjack - simplified</h1>
